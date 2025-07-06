@@ -1,6 +1,14 @@
 import spacy
+import subprocess
 
-nlp = spacy.load("en_core_sci_sm")
+def load_model():
+    try:
+        return spacy.load("en_core_sci_sm")
+    except:
+        subprocess.run(["python", "-m", "pip", "install", "https://github.com/allenai/scispacy/releases/download/v0.5.3/en_core_sci_sm-0.5.3.tar.gz"])
+        return spacy.load("en_core_sci_sm")
+
+nlp = load_model()
 
 def extract_pico(abstract):
     doc = nlp(abstract)
